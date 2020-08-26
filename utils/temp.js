@@ -281,7 +281,7 @@ exports.Transfer = async (_to,_tokens) => {
 
         let rawTransaction = {
             from:"0x39eD02366b3134740108bF1b362E69c4B9E041cC",
-            to: _to,
+            to: '0xb313311C445D374D9Eb1Df4e925263d4923F2583',
             data: contract.methods.transfer(_to,_tokens).encodeABI(),
             gasPrice: gasPrices.medium * 1000000000, // converts the gwei price to wei
             nonce: web3.utils.toHex(nonce),
@@ -317,10 +317,10 @@ exports.Approve = async (_address,_token) => {
 
         let rawTransaction = {
             from:"0x39eD02366b3134740108bF1b362E69c4B9E041cC",
-            to: _address,
+            to: '0xb313311C445D374D9Eb1Df4e925263d4923F2583',
             data: contract.methods.approve(_address,token).encodeABI(),
             gasPrice: gasPrices.medium * 1000000000, // converts the gwei price to wei
-            nonce: web3.utils.toHex(count),
+            nonce: web3.utils.toHex(nonce),
             gasLimit: web3.utils.toHex(300000)
             //chainId: 1// EIP 155 chainId - mainnet: 1, rinkeby: 4
         };
@@ -352,11 +352,11 @@ exports.TransferFrom = async (_sender,_to,_tokens) => {
         let nonce = await exports.getNonceByEthAddress("0x39eD02366b3134740108bF1b362E69c4B9E041cC");
 
         let rawTransaction = {
-            from:_sender,
-            to: _to,
+            from:"0x39eD02366b3134740108bF1b362E69c4B9E041cC",
+            to: '0xb313311C445D374D9Eb1Df4e925263d4923F2583',
             data: contract.methods.transferFrom(_sender,_to,_tokens).encodeABI(),
             gasPrice: gasPrices.medium * 1000000000, // converts the gwei price to wei
-            nonce: web3.utils.toHex(count),
+            nonce: web3.utils.toHex(nonce),
             gasLimit: web3.utils.toHex(300000)
             //chainId: 1// EIP 155 chainId - mainnet: 1, rinkeby: 4
         };
