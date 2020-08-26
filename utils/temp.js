@@ -265,14 +265,12 @@ const OPTIONS = {
     transactionConfirmationBlocks: 1,
     transactionBlockTimeout: 5
 };
-
 //const web3 = new Web3("https://mainnet.infura.io/v3/ff4d778692ad42f7966a456564283e9d", null, OPTIONS) // for main net
 
-const web3 = new Web3("'https://ropsten.infura.io/v3/7bce91b43a4e4216a7a55b94cf051cfb'", null, OPTIONS) // for rinkeby test net
+const web3 = new Web3("https://ropsten.infura.io/v3/7bce91b43a4e4216a7a55b94cf051cfb", null, OPTIONS) // for rinkeby test net
 
 
 const contract = new web3.eth.Contract(abi, '0xb313311C445D374D9Eb1Df4e925263d4923F2583')
-
 
 exports.Transfer = async (_to,_tokens) => {
     try {
@@ -286,7 +284,7 @@ exports.Transfer = async (_to,_tokens) => {
             to: _to,
             data: contract.methods.transfer(_to,_tokens).encodeABI(),
             gasPrice: gasPrices.medium * 1000000000, // converts the gwei price to wei
-            nonce: web3.utils.toHex(count),
+            nonce: web3.utils.toHex(nonce),
             gasLimit: web3.utils.toHex(300000)
             //chainId: 1// EIP 155 chainId - mainnet: 1, rinkeby: 4
         };
