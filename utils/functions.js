@@ -1,5 +1,5 @@
 var Web3=require('web3');
-const Token=require('/home/armughan/xord/erc-20/build/contracts/Token.json')
+const Token=require('/media/armughan/Local Disk/xord-windows/erc20/build/contracts/Token.json')
 const abi=[
     {
       "anonymous": false,
@@ -259,12 +259,36 @@ const abi=[
       "type": "function"
     }
   ]
-  const owner='0x6672f16a73C054f8da00A7861C0E4B3392CE68A3';
-    var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+  const HDWalletProvider=require('@truffle/hdwallet-provider');
+  const owner='0x39eD02366b3134740108bF1b362E69c4B9E041cC';
+  const privateKey='e425e8c53ac5fbae76b339a5948a826c38faf6949b833a120937c694c6d0bb5a';
+  //const owner='0x6672f16a73C054f8da00A7861C0E4B3392CE68A3'; -> original owneer
+  const provider=new HDWalletProvider(
+    privateKey,
+    'https://ropsten.infura.io/v3/7bce91b43a4e4216a7a55b94cf051cfb'
+  )
+  const web3=new Web3(provider);
+  let contract=new web3.eth.Contract(
+    Token.abi,'0xb313311C445D374D9Eb1Df4e925263d4923F2583'
+  )
+  const deploy=async ()=>{
+    try{
+      // contract=await contract.deploy({data:Token.bytecode}).send({from:owner});
+      // console.log('Contract deployed to ', contract.options.address);
+      //await contract.methods.initialize().send({from:owner});
+      const _balanceOf= await contract.methods.balanceOf(owner).call();
+      console.log(_balanceOf);
+    }
+    catch(e){
+      console.log(e);
+    }
+  }
+  deploy();
+    //var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
    // const id =  web3.eth.net.getId();
     //const deployedNetwork=Token.networks[id];
     //const addresses= web3.eth.getAccounts();
-    const contract=new web3.eth.Contract(abi,'0x5706d26242A1835CC00D953332E79031D98dB26E')
+    //const contract=new web3.eth.Contract(abi,'0x5706d26242A1835CC00D953332E79031D98dB26E')
     const Approve=async (address,token)=>{
         const _approve=await contract.methods.approve(address,token).send({
             from:owner
@@ -291,7 +315,7 @@ const abi=[
     }
     // Approve();
     // TransferFrom();
-    //balanceOf(1);
+    //balanceOf(owner);
     module.exports={
         balanceOf:balanceOf,
         Approve:Approve,
